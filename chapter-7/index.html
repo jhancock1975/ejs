@@ -8,18 +8,19 @@
 	var valley = new LifelikeWorld(
   ["############################",
    "#####                 ######",
-   "##   ***                **##",
+   "##   ***   @            **##",
    "#   *##**         **  O  *##",
    "#    ***     O    ##**    *#",
    "#       O         ##***    #",
    "#                 ##**     #",
    "#   O       #*             #",
-   "#*          #**       O    #",
+   "#*          #**   @   O    #",
    "#***        ##**    O    **#",
    "##****     ###***       *###",
    "############################"],
   {"#": Wall,
-   "O": PlantEater,
+   "O": SmartPlantEater,
+   "@": Tiger,
    "*": Plant}
 );
 
@@ -29,14 +30,15 @@ $( document ).ready(function() {
 
 	var intervalID = null;
 	
+	var world = valley;
 
 	$('#start').click(function(){
 		intervalID = setInterval(function(){
 		
-			valley.turn();
+			world.turn();
 		
 			$('#worldDisplay').html('<pre>' +
-				valley.toString() +
+				world.toString() +
 				'</pre>'
 				);
 		   }, 333);

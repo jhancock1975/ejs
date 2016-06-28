@@ -287,6 +287,60 @@ PlantEater.prototype.act = function(view) {
     return {type: "move", direction: space};
 };
 
+
+
+function Tiger() {
+  this.energy = 20;
+}
+Tiger.prototype.act = function(view) {
+  var space = view.find(" ");
+  if (this.energy > 60 && space)
+    return {type: "reproduce", direction: space};
+  var critter = view.find("O");
+  if (critter)
+    return {type: "eat", direction: critter};
+  if (space)
+    return {type: "move", direction: space};
+};
+
+
+function SmartPlantEater() {
+  this.energy = 20;
+  this.stomach = 0;
+  this.digestion = 0;
+}
+FULL = 3;
+TIME_TO_POOP=10;
+
+SmartPlantEater.prototype.act = function(view) {
+	
+	if (this.digestion === TIME_TO_POOP){
+		this.digestion = 0;
+		this.stomach = 0;
+		this.energy = 0;
+	}
+  
+	var space = view.find(" ");
+	
+	if (this.energy > 60 && space) {
+		return {type: "reproduce", direction: space};
+	}
+	
+	var plant = view.find("*");
+	
+	if (plant && (this.stomach < FULL)){
+		this.stomach = this.stomach + 1;
+		return {type: "eat", direction: plant};
+	}
+	
+	if (space){
+		return {type: "move", direction: space};
+	}
+	
+	this.digestion = this.digestion + 1;
+};
+
+
 var valley = new LifelikeWorld(
   ["############################",
    "#####                 ######",
