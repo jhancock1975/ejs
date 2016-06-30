@@ -24,10 +24,32 @@ var MOUNTAINS = [
 if (typeof module != "undefined" && module.exports)
   module.exports = MOUNTAINS;
 
-  function buildTable(data) {
+  function getTableHeader(data){
+	var columnNames = new Set();
+	data.forEach(function(obj){
+		Object.keys(obj).forEach(function(keyName){
+			columnNames.add(keyName);
+		});
+	});
+	var tr = document.createElement('TR');
+	for (let item of columnNames){
+		var th = document.createElement('TH');
+		th.innerHTML = item;
+		tr.appendChild(th);
+	}
+	return tr;
+  }
+  
+  function buildTable(data) {	
+	
+	var tableHeader = getTableHeader(data);
+	
 	var table = document.createElement('TABLE');
+	table.appendChild(tableHeader);
+	
 	var tr = document.createElement('TR');
 	table.appendChild(tr);
+	
 	var td = document.createElement('TD');
 	tr.appendChild(td);
 	td.innerHTML='test';
