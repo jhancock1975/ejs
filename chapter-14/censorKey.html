@@ -1,0 +1,26 @@
+<input type="text">
+<script>
+  var field = document.querySelector("input");
+
+  var typedRestrictedKey = false;
+
+  field.addEventListener("keyup", function(event){
+	console.log(event.keyCode);
+  });
+
+  field.addEventListener("keypress", function(event){
+	var charTyped = String.fromCharCode(event.charCode);
+	if (["X", "Q", "W"].indexOf(charTyped.toUpperCase()) > -1){
+		typedRestrictedKey = true;
+	}
+  });
+
+  field.addEventListener("keyup", function(event){
+        if (typedRestrictedKey){
+		field.value = field.value.substring(0, field.value.length-1);
+		typedRestrictedKey = false;
+        }
+  });
+
+
+</script>
