@@ -4,36 +4,31 @@
 
 <script>
   function byTagName(node, tagName) {
-	function byTagNameHelper(node, tagName, result){
-		if (node && tagName){
-			for(var i=0; i < node.childNodes.length; i++){
-				console.log('node.tagName = ' + node.tagName);
-				console.log('tagName = ' + tagName);
-				if (String.prototype.toUpperCase(node.tagName) ===
-					String.prototype.toUpperCase(tagName)){
-					result.push(node);
-				}
-				byTagNameHelper(node.childNodes[i], tagName, result);
-				return result;
+	
+	function byTagNameHelper(node, tagName){
+		if (node && node.tagName && tagName){
+			if (node.tagName.toUpperCase() ===
+				tagName.toUpperCase()){
+				result.push(node);
 			}
-		} else {
-			return null;
+			for(var i=0; i < node.childNodes.length; i++){
+				byTagNameHelper(node.childNodes[i], tagName);
+			}
 		}
 	}
 	
-	return byTagNameHelper(node, tagName, []);
+	var result = [];
+	byTagNameHelper(node, tagName, result);
+	return result;
   }
   var arr = byTagName(document.body, "h1");
-  console.log(arr);
   console.log(arr.length);
   // → 1
   arr = byTagName(document.body, "span");
-  console.log(arr);
   console.log(arr.length);
   // → 3
   var para = document.querySelector("p");
   arr = byTagName(para, "span");
-  console.log(arr);
   console.log(arr.length);
   // → 2
 </script>
