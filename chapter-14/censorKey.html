@@ -5,7 +5,9 @@
   var typedRestrictedKey = false;
 
   field.addEventListener("keyup", function(event){
-	console.log(event.keyCode);
+	if ([88, 81, 87].indexOf(event.keyCode) > -1){
+		typedRestrictedKey = true;
+	}
   });
 
   field.addEventListener("keypress", function(event){
