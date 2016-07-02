@@ -1,0 +1,66 @@
+<style>
+  .trail { /* className for the trail elements */
+    position: absolute;
+    height: 6px; width: 6px;
+    border-radius: 3px;
+    background: teal;
+  }
+  body {
+    height: 300px;
+  }
+</style>
+
+<body></body>
+
+<script>
+  var body = document.querySelector('body');
+  
+  function createDot(){
+	var div = document.createElement('DIV');
+	div.setAttribute('class', 'trail');
+	div.setAttribute('style', 'visibility:hidden');
+	return div;
+  }
+  
+  function createDotArr(){
+	var dots = [];
+	for(var i=0; i<5; i++){
+		dots.push(createDot());
+	}
+	return dots;
+  }  
+  
+  var dots = createDotArr();
+  
+  dots.forEach(function(dot){
+	  body.appendChild(dot);
+  });
+
+  var curDotIndex = 0;
+  
+  var scheduled = false, lastEvent;
+  
+  body.addEventListener("mousemove", function(event){
+	lastEvent = event;
+	if ( ! scheduled){
+		scheduled = true;
+		
+		//draw the dot
+		setTimeout(function(){
+			scheduled = false;
+			console.log(event.clientX, ',', event.clientY);
+			dots[curDotIndex].setAttribute('style', 'visibility:visible;' +
+				'top:' + (event.clientY) + ';'+
+				'left:' + ( event.clientX));
+			curDotIndex = (curDotIndex + 1) % dots.length;
+		},100);
+		//erase the dot
+		setTimeout(function(){
+				dots.forEach(function(dot){
+						dot.setAttribute('style', 'visibility:hidden');
+				});
+			}, 5000);
+	}
+  });
+</script>
+
