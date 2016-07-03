@@ -1,0 +1,58 @@
+<div id="wrapper">
+  <div data-tabname="one">Tab one</div>
+  <div data-tabname="two">Tab two</div>
+  <div data-tabname="three">Tab three</div>
+</div>
+<script>
+ 
+  var tabDivsObjs = [];
+
+  function asTabs(node) {
+
+    var tabDivs = document.querySelectorAll('div[data-tabname]');
+
+    //loop through the divs and build an array of objects
+    //the objects marry the buttons to the tabs
+    //also add an event listener to the buttons
+ 
+    for (var i = 0; i < tabDivs.length; i++){
+
+      //default to first tab visible, all others hidden
+      if (i === 0){
+        tabDivs[i].setAttribute('style', "display:inline");
+      } else {
+        tabDivs[i].setAttribute('style', 'display:none');
+      }
+
+      tabDivsObjs.push({div: tabDivs[i], btn: document.createElement('BUTTON')});
+      
+      tabDivsObjs[i].btn.innerHTML 
+        = tabDivsObjs[i].div.getAttribute('data-tabname');
+
+
+      //add a click event handler to every button
+      //we set the div associated with the button
+      //that was clicked to be visible, all others
+      //not visible
+
+      tabDivsObjs[i].btn.addEventListener("click", function(event){
+
+        for (var j = 0; j < tabDivsObjs.length; j++){
+
+          if (event.target === tabDivsObjs[j].btn){
+           tabDivsObjs[j].div.setAttribute('style', 'display:inline');
+         } else {
+           tabDivsObjs[j].div.setAttribute('style', 'display:none');
+         }
+        }
+
+      });
+    }
+ 
+    //put the buttons at the top of the page 
+    for (var i = tabDivs.length - 1; i >= 0; i--){ 
+      document.body.insertBefore(tabDivsObjs[i].btn, document.body.firstChild);
+    }
+  }
+  asTabs(document.querySelector("#wrapper"));
+</script>
