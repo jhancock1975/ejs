@@ -2,9 +2,15 @@
 <script>
   var cx = document.querySelector("canvas").getContext("2d");
 
-  function drawTrapezoid(cx, top,left,bottom,right, angle){
+  function parallelogram(x, y) {
     cx.beginPath();
-    cx.moveTo(left, bottom);
-    var slope = Math.atan(angle);
+    cx.moveTo(x, y);
+    cx.lineTo(x + 50, y);
+    cx.lineTo(x + 70, y + 50);
+    cx.lineTo(x - 20, y + 50);
+    cx.closePath();
+    cx.stroke();
   }
+  parallelogram(30, 30);
+
 </script>
