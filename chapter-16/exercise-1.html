@@ -11,6 +11,20 @@
     cx.closePath();
     cx.stroke();
   }
-  parallelogram(30, 30);
+  //parallelogram(30, 30);
 
+  function diamond(x,y){
+    cx.save();
+    cx.translate(70,0);
+    cx.rotate(Math.PI/4.0);
+    cx.beginPath();
+    cx.moveTo(x,y);
+    cx.lineTo(x+100,y);
+    cx.lineTo(x+100,y+100);
+    cx.lineTo(x,y+100);
+    cx.closePath();
+    cx.fill();
+    cx.restore();
+  }
+  diamond(0,0);
 </script>
