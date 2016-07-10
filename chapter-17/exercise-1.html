@@ -1,0 +1,39 @@
+<script>
+function get(url, format) {
+  return new Promise(function(succeed, fail) {
+    var req = new XMLHttpRequest();
+    req.open("GET", url, true);
+    if (format){
+      req.setRequestHeader('Accept', format);
+    }
+    req.addEventListener("load", function() {
+      if (req.status < 400)
+        succeed(req.responseText);
+      else
+        fail(new Error("Request failed: " + req.statusText));
+    });
+    req.addEventListener("error", function() {
+      fail(new Error("Network error"));
+    });
+    req.send(null);
+  });
+}
+
+function getJSON(url) {
+  return get(url).then(JSON.parse);
+}
+
+function getAndLog(url, header){
+  get(url, header).then(
+  function(text){
+    console.log('get = ' + text); 
+  },
+  function(error){
+    console.log('error = ' + error);
+  }
+);
+}
+console.log(getAndLog('http://eloquentjavascript.net/author','text/plain'));
+console.log(getAndLog('http://eloquentjavascript.net/author','application/json'));
+console.log(getAndLog('http://eloquentjavascript.net/author','text/html'));
+</script>
