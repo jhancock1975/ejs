@@ -1,0 +1,13 @@
+<textarea id="code">return "hi";</textarea>
+<button id="button">Run</button>
+<pre id="output"></pre>
+
+<script>
+  var btn = document.querySelector('#button');
+  var outputArea = document.querySelector('#output');
+  btn.addEventListener('click', function(){
+    var codeTxt = document.querySelector('#code').value;
+    var resultFn = new Function('', codeTxt);
+    outputArea.innerText= resultFn();
+  });
+</script>
