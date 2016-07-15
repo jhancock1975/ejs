@@ -6,7 +6,6 @@ var options = {
   method: "GET",
   path: "/author",
   headers: {
-   'Content-Type': 'text/plain',
    Accept: "text/plain"
   }
 };
@@ -25,22 +24,19 @@ var doRequest = function(){
 doRequest();
 
 options.headers = {
-  'Content-Type': 'text/html',
   Accept: "text/html"
 };
 
 doRequest();
 
 options.headers = {
-  'Content-Type': 'application/json',
   Accept: "application/json"
 }
 
 doRequest();
 
 options.headers = {
-  'Content-Type': 'application/rainbows+unicorns',
-  Accept: "application/json"
+  Accept: "application/rainbows+unicorns"
 }
 
 doRequest();
